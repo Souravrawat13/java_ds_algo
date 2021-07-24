@@ -1,0 +1,50 @@
+class Solution {
+    public void nextPermutation(int[] nums) {
+        int i = nums.length-2;
+        
+        while(i >= 0 && nums[i + 1] <= nums[i]){      //find the first dec no from end//*
+            
+            i--;
+        }
+        
+        if(i >= 0){
+            int j = nums.length-1;                    //find the (first)next larger no from the end //
+            
+            while(nums[j] <= nums[i]) {
+                j--;
+             }
+            swap(nums,i,j);
+            
+            
+        }
+        
+        
+        reverse(nums,i+1);
+    }
+    
+    private void reverse(int[] nums, int i){
+        int lo=i;
+        int hi= nums.length-1;
+        while(lo<hi){
+            swap(nums,lo,hi);
+            lo++;
+            hi--;
+        }
+        
+        
+        
+    }
+    
+    
+    private void swap(int [] nums, int i, int j){
+        
+        
+        int temp= nums[i];
+        nums[i]= nums[j];
+        nums[j]= temp;
+        
+        
+    }
+    
+    
+}
