@@ -1,0 +1,33 @@
+class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        
+        List<List<Integer>> list= new ArrayList<>();
+        Arrays.sort(candidates);
+        backTrack(candidates,0,target,list,new ArrayList<>());
+        return list;
+        
+    }
+    
+    private void backTrack(int [] nums, int st, int rem,List<List<Integer>>ans, List<Integer> ds){
+        
+        if(rem<0){
+            return;
+        }else if(rem==0){
+            ans.add(new ArrayList<>(ds));
+        }
+        else{
+            for(int i=st;i<nums.length;i++){
+                 if(i==st ||i>st && nums[i]!=nums[i-1]) {
+                ds.add(nums[i]);
+                backTrack(nums,i+1,rem-nums[i],ans,ds);
+                ds.remove(ds.size()-1);               
+            }
+        }
+        }
+        
+        
+        
+    }
+}
+
+ 
