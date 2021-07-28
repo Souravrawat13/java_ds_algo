@@ -41,4 +41,53 @@ class Solution {
         return list;
     }
 }
+
+
+
+
+//--SPIRAL MATRIX 2--///
+class Solution {
+    public int[][] generateMatrix(int n) {
+        
+        int rowbeg=0;
+        int colbeg=0;
+        int rowend=n-1;
+        int colend=n-1;
+        int k=1;
+        
+        int[][] arr= new int[n][n];
+        
+       
+        while(k<=n*n){
+            
+            for(int i=colbeg;i<=colend &&k<=n*n;i++){
+                arr[rowbeg][i]=k;
+                k++;
+            }
+            rowbeg++;
+            
+            for(int i=rowbeg;i<=rowend&&k<=n*n;i++){
+                arr[i][colend]=k;
+                k++;               
+            }
+            colend--;
+            
+             for(int i=colend;i>=colbeg &&k<=n*n;i--){
+                 
+                 arr[rowend][i]=k;
+                 k++;
+             }
+            rowend--;
+            for(int i=rowend;i>=rowbeg &&k<=n*n;i--){
+                 
+                 arr[i][colbeg]=k;
+                 k++;
+             }
+            colbeg++;
+            
+            
+        }
+     return arr   ;
+    }
+}
   
