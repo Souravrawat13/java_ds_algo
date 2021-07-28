@@ -28,13 +28,13 @@ class Solution {
         }
         
     for(int i=0;i<m;i++){
-        if(matrix[0][0]==0){
+        if(matrix[0][0]==0){      ///--For first row--///
             matrix[0][i]=0;
         }
     }
        if(isCol){
            for(int i=0;i<n;i++){
-               matrix[i][0]=0;
+               matrix[i][0]=0;        ///--for first column--///
            }
        } 
         
