@@ -1,0 +1,39 @@
+ 
+class Solution {
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        
+         
+ 
+        TreeNode node=tree(0,inorder.length-1,0,postorder.length-1,inorder,postorder);
+        
+        return node;
+        
+    }
+    
+    public TreeNode tree(int is,int ie,int ps, int pe,int[] inod, int[] postod){
+        if(ps>pe){
+            return null;
+        }
+        
+        
+        TreeNode root=new TreeNode(postod[pe]);
+        int inindex=0;
+        for(int i=0;i<inod.length;i++){
+            
+            if(root.val==inod[i]){
+                inindex=i;
+            }
+        }
+        
+        
+        root.left= tree(is,inindex-1,ps,ps+inindex-is-1,inod,postod); ///// left tree Size= inindex-is;
+        
+        
+        root.right= tree(inindex+1,ie,pe-ie+inindex,pe-1,inod,postod); ////// Right tree Size= ie- inindex;
+      return root;  
+    }
+    
+ 
+}
+                        
+  
