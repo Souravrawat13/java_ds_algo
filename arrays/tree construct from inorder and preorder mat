@@ -1,0 +1,34 @@
+ 
+class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        
+        TreeNode node=tree(0,0,inorder.length-1,preorder,inorder);
+        
+        return node;
+        
+    }
+    
+    public TreeNode tree(int prest, int inst,int inend, int[] preod,int[] inod){
+        if(prest>preod.length || inst>inend ){
+            return null;
+        }
+        
+        
+        TreeNode root=new TreeNode(preod[prest]);
+        int inindex=0;
+        for(int i=0;i<inod.length;i++){
+            
+            if(root.val==inod[i]){
+                inindex=i;
+            }
+        }
+        
+        
+        root.left= tree(prest+1,inst,inindex-1,preod,inod);
+        root.right= tree(prest+inindex-inst+1,inindex+1,inend,preod,inod);
+        
+      return root;  
+    }
+    
+}
+
