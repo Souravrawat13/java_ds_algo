@@ -32,3 +32,33 @@ class Solution {
         
     }
 }
+
+----//// APPROACH 2ND//-----
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+ 
+     
+        
+    
+        int start=0;
+        int tank=0;
+        int currGain=0;
+        for(int i=0;i<gas.length;i++){
+            
+            currGain += gas[i] - cost[i];
+            
+            if(currGain<0){
+                start=i+1;
+                tank+=currGain;
+                currGain=0;
+                     
+        }
+        }
+        
+        return tank+currGain<0?-1:start;
+        
+    }
+}
+
+
+
