@@ -1,0 +1,32 @@
+class Solution {
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        
+                  List<List<Integer>> list= new ArrayList<>();
+                   
+        combination(1,k,n,new ArrayList<>(),list);
+        
+        return list;
+    }
+
+public void combination(int st,int k,int n,List<Integer> tl,List<List<Integer>> ml){
+    
+    if(n==0 && tl.size()==k){
+        ml.add(new ArrayList<>(tl));
+        return;
+        
+    }
+    if(n<0){
+        return;
+    }
+    for(int i=st;i<=9;i++){
+        
+        tl.add(i);
+        
+        combination(i+1,k,n-i,tl,ml);
+        tl.remove(tl.size()-1);
+        
+    }
+     
+
+}
+}
