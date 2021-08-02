@@ -1,0 +1,63 @@
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+       
+        int pi= quickselect(nums,0,nums.length-1,nums.length-k);
+        
+        return nums[pi];
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+  public int quickselect(int[] nums,int lo, int hi, int k){
+      
+      int pivot=nums[lo];
+      int pi= partition(nums,lo,hi,pivot);
+      
+      
+      if(k>pi){
+          
+return    quickselect(nums,pi+1,hi,k);
+      }
+      else if(k<pi){
+ return   quickselect(nums,lo,pi-1,k);
+      }
+      else{
+          return pi;
+      }
+       
+  }  
+  
+    
+    public int partition(int[] nums,int lo,int hi,int pivot){
+        
+        int i=hi;
+        int j=hi;
+        
+        while(i>=lo) {
+            
+            if(nums[i]>=pivot){
+                swap(nums,i,j);
+                i--;
+                j--;
+            }     
+            else{
+                i--;
+            }
+        }    
+        return j+1;
+        
+    }
+    
+    public  void swap(int[] nums,int i,int j) {
+    
+    int temp = nums[i];
+    nums[i] =nums[j];
+    nums[j]= temp;
+  }
+    
+}
