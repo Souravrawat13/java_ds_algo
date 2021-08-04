@@ -1,0 +1,66 @@
+class Solution {
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> list= new ArrayList<>();
+         char [][] arr = new char[n][n];
+         for(int i=0;i<n;i++){
+             for(int j=0;j<n;j++){
+                 arr[i][j]='.';
+             }
+         }
+        
+          queens(n,0,list,arr);
+        return list;
+}
+    
+    
+    
+    public void queens(int n,int row,List<List<String>> ml,char[][] arr){
+        if(row==arr.length){
+           ml.add(construct(arr));
+            
+        }
+        
+        
+        for(int col=0;col<n;col++){
+            if(iqsafe(arr,row,col)==true){
+            arr[row][col]='Q';
+            queens(n,row+1,ml,arr);
+            arr[row][col]='.';
+            }
+            
+            
+        }
+        
+    }
+                 
+                 
+     public boolean iqsafe(char[][] arr,int row,int col){
+         
+         for(int i=row-1,j=col;i>=0;i--){
+             if(arr[i][j]=='Q'){
+                 return false;
+             }
+         }
+         
+         for(int i=row-1,j=col-1;i>=0 && j>=0;i--,j--){
+             if(arr[i][j]=='Q') return false;
+         }
+         
+         for(int i=row-1,j=col+1;i>=0&&j<arr.length;i--,j++){
+            if(arr[i][j]=='Q') return false;    
+         }
+         
+         
+         return true;
+         
+     }
+    
+        private List<String> construct(char[][] board) {
+        List<String> res = new ArrayList<String>();
+        for(int i = 0; i < board.length; i++) {
+            String s = new String(board[i]);
+            res.add(s);
+        }
+        return res;
+    }
+}
