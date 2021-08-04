@@ -50,17 +50,16 @@ class Solution {
     }
 }
 //APPROACH 2 O(N), O(1)//
-public int maxProfit(int[] prices) {
-    int oneBuy = Integer.MIN_VALUE;
-    int oneBuyOneSell = 0;
-    int twoBuy = Integer.MIN_VALUE;
-    int twoBuyTwoSell = 0;
-    for(int i = 0; i < prices.length; i++){
-        oneBuy = Math.max(oneBuy, -prices[i]);//we set prices to negative, so the calculation of profit will be convenient
-        oneBuyOneSell = Math.max(oneBuyOneSell, prices[i] + oneBuy);
-        twoBuy = Math.max(twoBuy, oneBuyOneSell - prices[i]);//we can buy the second only after first is sold
-        twoBuyTwoSell = Math.max(twoBuyTwoSell, twoBuy + prices[i]);
+public class Solution {
+    public int maxProfit(int[] prices) {
+        int hold1 = Integer.MIN_VALUE, hold2 = Integer.MIN_VALUE;
+        int release1 = 0, release2 = 0;
+        for(int i:prices){                              // Assume we only have 0 money at first
+            release2 = Math.max(release2, hold2+i);     // The maximum if we've just sold 2nd stock so far.
+            hold2    = Math.max(hold2,    release1-i);  // The maximum if we've just buy  2nd stock so far.
+            release1 = Math.max(release1, hold1+i);     // The maximum if we've just sold 1nd stock so far.
+            hold1    = Math.max(hold1,    -i);          // The maximum if we've just buy  1st stock so far. 
+        }
+        return release2; ///Since release1 is initiated as 0, so release2 will always higher than release1.
     }
-    
-    return Math.max(oneBuyOneSell, twoBuyTwoSell);
 }
