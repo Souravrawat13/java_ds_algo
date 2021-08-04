@@ -1,0 +1,80 @@
+//FIRST APPROACH//
+
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        int n= heights.length;
+   
+        int[] left= new int[n];
+        int[] right= new int[n];
+        Stack<Integer> st= new Stack<>();
+        
+        for(int i=0;i<n;i++){
+            
+            while(!st.empty() && heights[st.peek()]>=heights[i]){
+                st.pop();
+            }
+            
+            if(st.empty()) left[i]=0;
+            else left[i]= st.peek()+1;
+            
+            st.push(i);
+        }
+       
+        
+        while(!st.empty()) {st.pop();}
+        
+         for(int i=n-1;i>=0;i--){
+            
+            while(!st.empty() && heights[st.peek()]>=heights[i]){
+                st.pop();
+            }
+            
+            if(st.empty()) right[i]=n-1;
+            else right[i]= st.peek()-1;
+            
+            st.push(i);
+        }
+       
+        
+        int max=0;
+        for(int i=0;i<n;i++){
+            
+          max= Math.max(max, (right[i]-left[i]+1)*heights[i]);
+            
+        }
+        
+        return max;
+        
+    }
+}
+
+//APPROACH 2ND//
+
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        int n= heights.length;
+   
+        
+        Stack<Integer> st= new Stack<>();
+        int area=0;
+        for(int i=0;i<=n;i++){
+            
+            while(!st.empty() &&(i==n|| heights[st.peek()]>=heights[i])){
+              int height= (heights[st.pop()]);  
+                
+                int width;
+                if(st.empty()) width=i;
+                else width= i- st.peek()-1;
+                
+                area= Math.max(area, width* height);
+           
+            
+            }
+        st.push(i);
+        }
+ 
+     return area;
+            
+    }
+}
+
