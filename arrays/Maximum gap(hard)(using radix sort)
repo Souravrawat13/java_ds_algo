@@ -1,0 +1,66 @@
+class Solution {
+    public int maximumGap(int[] nums) {
+      
+        int n= nums.length;
+        if(n<2){
+            return 0;
+        }
+        
+        int max=Integer.MIN_VALUE;
+        
+        for(int i=0;i<n;i++){
+           max= Math.max(nums[i],max);
+            
+        }
+        //sort//
+         int ans[]= new int[nums.length];
+        int exp=1;
+        while(exp<=max){
+                 int [] farr=new int[10];
+        
+        for(int i=0;i<nums.length;i++){
+            
+            farr[nums[i]/exp%10]++;
+            
+        }
+        
+        for(int i=1;i<farr.length;i++){
+            farr[i] += farr[i-1];
+        }
+        
+        
+       
+        
+        for(int i=nums.length-1;i>=0;i--){
+            
+            
+            int val= nums[i];
+            int idx= farr[val/exp%10]-1;
+            ans[idx]= val;
+            farr[val/exp%10]--;
+            
+        }
+        for(int i=0;i<nums.length;i++){
+            nums[i]= ans[i];
+        }
+        
+            exp=exp*10;
+        }
+        
+        
+        
+            
+        int tmax=Integer.MIN_VALUE;
+        for(int i=1;i<n;i++){
+            
+            if(nums[i]-nums[i-1]>tmax){
+                tmax= nums[i]-nums[i-1];
+            }
+            
+        }
+        return tmax;
+        
+        
+    }
+      
+}
