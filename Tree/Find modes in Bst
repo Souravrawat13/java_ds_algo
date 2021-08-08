@@ -1,0 +1,73 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int count =1;
+    int max=0;
+    Integer prev = null;
+    
+    public int[] findMode(TreeNode root) {
+        if(root==null){
+            return new int[0];
+        }
+    List<Integer> modes= new ArrayList<>();
+         
+        traverse(root,modes);
+          
+        int [] ar = new int[modes.size()];
+        
+        for(int i=0;i<ar.length;i++){
+            ar[i]=modes.get(i);
+        }
+        return ar;
+        
+        
+    }
+ 
+    public void traverse(TreeNode root,List<Integer> modes){
+        if(root== null) return;
+       
+        traverse(root.left,modes);
+        
+         if(prev!=null){
+            if(root.val== prev)
+            {
+                count++;
+            }
+             else{ count=1;}
+        }
+       
+        
+        if(count>max){
+            max=count;
+            modes.clear();
+            modes.add(root.val);
+        }
+        else if(count==max){
+            modes.add(root.val);
+        }
+         prev= root.val;
+        
+        
+        traverse(root.right,modes);
+        
+        
+        
+    }
+    
+    
+    
+ }
+ 
