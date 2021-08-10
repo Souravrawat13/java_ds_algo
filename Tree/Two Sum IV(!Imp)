@@ -1,0 +1,98 @@
+ //APPROACH 1// //APPROACH 2 BY USING ARRAYLIST FOR STORING SORTED LIST //
+class Solution {
+    public class Pair{
+        TreeNode node;
+        int state=0;
+        Pair(TreeNode node, int state){
+            this.node=node;
+            this.state= state;
+        }
+    }
+    public boolean findTarget(TreeNode root, int k) {
+        Stack<Pair> ls= new Stack<>();
+        Stack<Pair> rs= new Stack<>();
+        
+        ls.push(new Pair(root,0));
+        rs.push(new Pair(root,0));
+        
+        TreeNode left= Ninod(ls);
+        TreeNode right= Rinod(rs);
+        
+        while(left.val<right.val){
+            
+            if(left.val+right.val<k) left= Ninod(ls);
+            else if(left.val+right.val>k) right= Rinod(rs);
+            else return true;
+        }
+        
+        return false;
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    public  TreeNode Ninod(Stack<Pair> p){
+        
+        while(p.size()>0){
+            Pair top= p.peek();
+             
+            if(top.state==0){
+                if(top.node.left !=null) p.push(new Pair(top.node.left,0));
+                 top.state++;
+             }
+              
+            else if(top.state==1){
+                if(top.node.right!=null) p.push(new Pair(top.node.right,0));
+                 
+                
+                 top.state++;
+                 return top.node;
+                
+            }
+            
+            
+            else{
+                p.pop();
+                
+            }
+            
+            
+        }
+        
+        return null;
+        
+    }
+    
+     public  TreeNode Rinod(Stack<Pair> p){
+        
+        while(p.size()>0){
+            Pair top= p.peek();
+             if(top.state==0){
+                if(top.node.right !=null) p.push(new Pair(top.node.right,0));
+                    top.state++;
+             }
+         
+            else if(top.state==1){
+                if(top.node.left!=null) p.push(new Pair(top.node.left,0));
+                 top.state++;
+            
+            return top.node;
+            }
+             
+            else{
+                p.pop();
+                
+            }
+            
+            
+        }
+        
+        return null;
+        
+    }
+    
+}
