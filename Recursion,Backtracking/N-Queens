@@ -1,0 +1,52 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+  public static void main(String[] args) throws Exception {
+    Scanner scn = new Scanner(System.in);
+    int n = scn.nextInt();
+    boolean[][] board = new boolean[n][n];
+    boolean [] cols= new boolean[n];
+    boolean[] ndiag= new boolean[2* n-1];
+    boolean[] rdiag= new boolean[2* n-1];
+    
+    queens(n,0,"",cols,ndiag,rdiag,board);
+    
+  }
+  
+  
+  public static void queens(int n, int row, String qsf,boolean []cols, boolean[] ndiag, boolean[] rdiag, boolean[][] board){
+      if(row==n){
+          System.out.println(qsf+".");
+          return;
+      }
+      
+      
+      for(int col=0;col<n;col++){
+          
+          if(cols[col]==false&&ndiag[row+col]==false&&rdiag[row-col+ n-1]==false){
+              
+              
+              board[row][col]= true;
+              cols[col]= true;
+              ndiag[row+col]= true;
+              rdiag[row-col+ n-1]= true;
+              queens(n,row+1,qsf+row+"-"+col+", ",cols,ndiag,rdiag,board);
+              
+              
+                board[row][col]= false;
+              cols[col]= false;
+              ndiag[row+col]= false;
+              rdiag[row-col+ n-1]= false;
+              
+              
+          }
+          
+          
+      }
+      
+      
+  }
+
+}
