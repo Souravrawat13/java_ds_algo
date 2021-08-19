@@ -1,0 +1,62 @@
+class Solution {
+    public boolean solve(Tree root, int target) {
+        double targetValueLog2 = Math.log(target) / Math.log(2);
+        double ans = targetValueLog2 - (int) targetValueLog2;
+        double left = 0.0, right = 1.0;
+
+        while (root != null) {
+            if (root.val == target) {
+                return true;
+            }
+            double mid = (left + right) / 2.0;
+            if (ans >= mid) {
+                root = root.right;
+                left = mid;
+            } else {
+                root = root.left;
+                right = mid;
+            }
+        }
+        return false;
+    }
+}
+
+//--solution 2////
+
+import java.util.*;
+
+/**
+ * public class Tree {
+ *   int val;
+ *   Tree left;
+ *   Tree right;
+ * }
+ */
+class Solution {
+    public boolean solve(Tree root, int target) {
+        if (target <= 0)
+            return false;
+
+        // we can construct the path to target
+        LinkedList<Integer> path = new LinkedList();
+        int tmp = target;
+        while (tmp != 1) {
+            path.addFirst(tmp);
+            tmp = tmp / 2;
+        }
+        Tree trav = root;
+        while (path.size() > 0) {
+            int num = path.removeFirst();
+            if (num % 2 == 0) {
+                if (trav.left == null)
+                    return false;
+                trav = trav.left;
+            } else {
+                if (trav.right == null)
+                    return false;
+                trav = trav.right;
+            }
+        }
+        return true;
+    }
+}
