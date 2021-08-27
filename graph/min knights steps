@@ -1,0 +1,61 @@
+ class Solution
+{
+    public class Pair{
+        int i;
+        int j;
+        int steps;
+        Pair(int i, int j, int steps){
+            this.i=i;
+            this.j=j;
+            this.steps= steps;
+        }
+    }
+     
+    public int minStepToReachTarget(int KnightPos[], int TargetPos[], int N)
+    {
+        int ti=TargetPos[0]-1;
+        int tj=TargetPos[1]-1;
+        int ki=KnightPos[0]-1; 
+        int kj=KnightPos[1]-1; 
+        
+        boolean[][] visited= new boolean [N][N];
+        
+         Queue<Pair> q= new ArrayDeque<>();
+         q.add(new Pair(ki,kj,0));
+         
+         int[] ri={-2,-1,1,2,2,1,-1,-2};
+         int[] ci={1,2,2,1,-1,-2,-2,-1};
+         
+         while(!q.isEmpty()){
+             
+             Pair rem = q.remove();
+             if(visited[rem.i][rem.j]==true){
+                 continue;
+             }
+             if(rem.i==ti &&rem.j==tj){
+                 return rem.steps;
+             }
+             
+             visited[rem.i][rem.j]=true;
+             
+             for(int i=0;i<8;i++){
+                 int r= rem.i+ri[i];
+                 int c=rem.j+ci[i];
+                 if(r<0 || c<0 || r>=N ||c>=N){
+                     continue;
+                 }
+                 q.add(new Pair(r,c,rem.steps+1));
+             }
+             
+         }
+         return -1;
+         
+         
+         
+    }
+    
+    
+    
+    
+    
+}
